@@ -1,3 +1,5 @@
+# Contact Info
+* Ruhang Ma: m.ruhang@berkeley.edu
 # Actionmap
 
 <div style="text-align: center;">
