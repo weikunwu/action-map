@@ -1,6 +1,3 @@
-# Contact Info
-* Ruhang Ma: m.ruhang@berkeley.edu
-* Andre Wang: andre.wang@berkeley.edu
 # Actionmap
 
 <div style="text-align: center;">
