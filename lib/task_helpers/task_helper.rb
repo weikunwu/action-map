@@ -28,7 +28,7 @@ module TaskHelper
         File.open(Rails.root.join(filename), 'w:UTF-8') do |f|
             f.write(
                 JSON.pretty_generate(content)
-                    .force_encoding('UTF-8')
+                      .force_encoding('UTF-8')
             )
         end
     end

@@ -3,7 +3,7 @@
 class CreateStates < ActiveRecord::Migration[5.2]
     def up
         create_table :states do |t|
-            t.string :name, unique: true, null: false   # eg. California
+            t.string :name, unique: true, null: false # eg. California
             t.string :symbol, unique: true, null: false # eg. CA
             t.integer :fips_code, unique: true, limit: 1, null: false # Tinyint column
             t.integer :is_territory, null: false

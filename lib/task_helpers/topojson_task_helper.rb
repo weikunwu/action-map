@@ -52,7 +52,7 @@ module TopojsonTaskHelper
             Rails.logger.info "Fetching shp file from #{request.fetch_url} into #{zip_file}"
             f.write(
                 URI.parse(request.fetch_url)
-                    .read
+                      .read
             )
             unzip_shpfiles request
 
