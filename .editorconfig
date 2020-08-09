@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 
@@ -25,6 +26,8 @@
     trim_trailing_whitespace = false
 
 =======
+=======
+>>>>>>> a515a46831a3fe6594ac592f79261539beb5e8cf
 # EditorConfig helps developers define and maintain consistent
 # coding styles between different editors and IDEs
 # editorconfig.org
