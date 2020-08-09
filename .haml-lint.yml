@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b53ef020622b1816db59cbebf59940f7bf42c95
 linters:
     LineLength:
         max: 120
@@ -10,4 +13,7 @@ linters:
 exclude:
     - 'node_modules/**/*'
     - 'vendor/**/*'
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0b53ef020622b1816db59cbebf59940f7bf42c95

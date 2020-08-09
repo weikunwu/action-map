@@ -1,6 +1,3 @@
-# Contact Info
-* Ruhang Ma: m.ruhang@berkeley.edu
-* Andre Wang: andre.wang@berkeley.edu
 # Actionmap
 
 <div style="text-align: center;">
@@ -17,4 +14,6 @@ political events in their area as well as aggregate, share and view news items i
 ### Getting Setup Locally
 
 Follow the [Getting Started Guide](./docs/getting-started.md) to get your localhost environment setup.
+
+protected-woodland-59061.herokuapp.com
 
