@@ -61,7 +61,8 @@ class Representative < ApplicationRecord
           
             rep.party = official.party
             rep.photourl = official.photo_url
-
+            
+            rep.save
             reps.push(rep)
         end
 
