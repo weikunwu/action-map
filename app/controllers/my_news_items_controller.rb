@@ -9,7 +9,9 @@ class MyNewsItemsController < SessionController
         @news_item = NewsItem.new
     end
 
-    def edit; end
+    def edit
+        # My Code #
+    end
 
     def create
         @news_item = NewsItem.new(news_item_params)
