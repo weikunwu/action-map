@@ -7,10 +7,12 @@ class MyNewsItemsController < SessionController
 
     def new
         @news_item = NewsItem.new
+        @all_issues = NewsItem.all_issues
     end
 
     def edit
         # My Code #
+        @all_issues = NewsItem.all_issues
     end
 
     def create
