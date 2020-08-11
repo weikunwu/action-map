@@ -1,27 +1,40 @@
 
 %html
     %head  
-        %link{:rel => :stylesheet, :type => :"text/css", :href => "/javascript/packs/stylesheets/application.scss"} 
+        -#%link{:rel => :stylesheet, :type => :"text/css", :href => "app/javascript/packs/stylesheets/application.scss"} 
     %body  
         .container
             .row
                 .profile
+                    :css
+                        .container { width: 100% }
                     .container
+                        :css
+                            .img { height: 250px; width: 250px; min-height: 250px; min-width: 250px }
+                            .row { margin-top: 50px }
+                            .name { margin-top: 0px; margin-left:-200px; width: 1000px }
+                            .title { margin-left:-200px; width: 1000px }
+                            .ocdid { margin-left:-200px; width: 1000px }
+                            .address { margin-left:-200px; width: 1000px }
+                            .party{ margin-left:-200px; width: 1000px }
                         .row
                             .col
                                 .img
-                                    %img.img-raised.rounded-circle.img-fluid{:alt => "Circle Image", :src => "https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTU0NjQzOTk4OTQ4OTkyMzQy/ansel-elgort-poses-for-a-portrait-during-the-baby-driver-premiere-2017-sxsw-conference-and-festivals-on-march-11-2017-in-austin-texas-photo-by-matt-winkelmeyer_getty-imagesfor-sxsw-square.jpg"}/
-                            .row
-                                .col    
-                                    .row
-                                        .name
-                                            %h3 #{@representatives.name}
-                                    .row
-                                        .title
-                                            %h6 #{@representatives.title}
-                                    .row
-                                        .ocdid
-                                            %h6 #{@representatives.ocdid}
+                                    %img.img-raised.rounded-circle.img-fluid{:alt => "Image Not Found" , :src => @representatives.photourl}
+                            .col    
+                                .name
+                                    %h1 #{@representatives.name}
+                                .title
+                                    %h5 #{@representatives.title}
+                                .party
+                                    %h5 #{@representatives.party}
+                                .address
+                                    %h5 #{@representatives.address_line1}  
+                                    %h5 #{@representatives.city}, #{@representatives.state} #{@representatives.zip}
+                                .ocdid
+                                    %h5 #{@representatives.ocdid}
+                                    
+
 
 
                     

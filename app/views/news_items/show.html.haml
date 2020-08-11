@@ -15,7 +15,7 @@
                 %dl.row
                     %dt.col-sm-3.text-md-right Representative:
                     %dt.col-sm-9
-                        %a{ href: representative_path(@representative) }
+                        %a{ href: representative_profile_page_path(@representative.id) }
                             = @news_item.representative.name
                 %dl.row
                     %dt.col-sm-3.text-md-right Time Added:
