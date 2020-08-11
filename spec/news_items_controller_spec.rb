@@ -19,37 +19,16 @@ RSpec.describe NewsItemsController, type: :controller do
     describe "GET #index" do
         it "shows news items of a representative" do
             get :index, params: { representative_id: @representative0.id }
-            
-            puts "DEBUG actual news_items: #{@representative0.news_items[0]}"
-            puts "DEBUG returned news_items: #{assigns(:news_items)[0]}"
-            expect(1).to eq(1)
             expect(assigns(:news_items)).to include(@news_item00)
             expect(response).to render_template(:index)
         end
-
-#         it "sorts all movies by title" do
-#           get :index, :sort => 'title'
-#           response.status.should be(302)
-#         end
-
-#         it "sorts all movies by date" do
-#           get :index, :sort => 'release_date'
-#           response.status.should be(302)
-#         end
-
-#         it "finds similar movies by director" do
-#           get :index, :movie_id_with_director => @movie2.id
-#           expect(assigns(:movies).all).to include(@movie2)
-#         end
-
-#         it "finds similar movies without director" do
-#           get :index, :movie_id_with_director => @movie3.id
-#           assigns(:movies).all.should include(@movie3)
-#           assigns(:movies).all.should include(@movie)
-#         end
     end
   
   
+    describe "Get #show" do
+        
+    
+    end
 #   describe "POST #create" do
 #     it "adds new movie to database" do
 #         expect {
