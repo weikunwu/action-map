@@ -10,6 +10,7 @@ class NewsItemsController < ApplicationController
 
     def show
         # My Code #
+        # @news_item = NewsItem.find(params[:id])
     end
 
     private
