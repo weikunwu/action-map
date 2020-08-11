@@ -13,16 +13,19 @@ RSpec.describe NewsItemsController, type: :controller do
         @r_params0 = {:ocdid => '123', :name => 'name0', :title => 'title0'} #,:created_at => '1/7/2020', :updated_at => '1/7/2020'}
         @representative0 = Representative.create(@r_params0)
         @news_item_params00 = {:title => 'news0-0', :link => 'link0-0', representative_id: @representative0.id}
-        @news_item00 = NewsItem.new(@news_item_params00)
+        @news_item00 = @representative0.news_items.create(@news_item_params00)
     end
   
     describe "GET #index" do
-#         it "shows news items of a representative" do
-# #           get :index, :representative_id => @representative0.id
-#           get :index, params: { representative_id: @representative0.id }
-#           expect(assigns(:news_items).all).to include(@news_item00)
-#           expect(response).to render_template(:index)
-#         end
+        it "shows news items of a representative" do
+            get :index, params: { representative_id: @representative0.id }
+            
+            puts "DEBUG actual news_items: #{@representative0.news_items[0]}"
+            puts "DEBUG returned news_items: #{assigns(:news_items)[0]}"
+            expect(1).to eq(1)
+            expect(assigns(:news_items)).to include(@news_item00)
+            expect(response).to render_template(:index)
+        end
 
 #         it "sorts all movies by title" do
 #           get :index, :sort => 'title'
