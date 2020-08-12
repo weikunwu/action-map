@@ -28,4 +28,5 @@ class NewsItem < ApplicationRecord
             "Minimum Wage", 
             "Equal Pay"]
     end
+    
 end

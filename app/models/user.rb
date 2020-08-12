@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+    has_many :ratings
+    
     # Add more Authentication Providers here.
     enum provider: { google_oauth2: 1, github: 2 }, _prefix: :provider
 

@@ -16,7 +16,10 @@ class MyNewsItemsController < SessionController
     end
 
     def create
-        @news_item = NewsItem.new(news_item_params)
+#         @news_item = NewsItem.new(news_item_params)
+        @news_item = @representative.news_items.new(news_item_params)
+        puts "*************************"
+        puts "DEBUG received rating:", news_item_params[:rating]
         if @news_item.save
             redirect_to representative_news_item_path(@representative, @news_item),
                         notice: 'News item was successfully created.'
@@ -58,6 +61,6 @@ class MyNewsItemsController < SessionController
 
     # Only allow a list of trusted parameters through.
     def news_item_params
-        params.require(:news_item).permit(:news, :title, :description, :link, :representative_id)
+        params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue, :rating)
     end
 end
