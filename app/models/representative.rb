@@ -29,20 +29,10 @@ class Representative < ApplicationRecord
             return nil
         end
     end
-  
-    def self.civic_api_to_representative_params(rep_info)
-        reps = []
-        rep_info.officials.each_with_index do |official, index|
-            ocdid_temp = ''
-            title_temp = ''
-
-            rep_info.offices.each do |office|
-                if office.official_indices.include? index
-                    title_temp = office.name
-                    ocdid_temp = office.division_id
-                end
-            end
-
+    
+    def self.add_representative_to_database(official,ocdid_temp,title_temp)
+        rep = Representative.where("name=? AND ocdid=? AND title=?",official.name,ocdid_temp,title_temp)[0]
+        if rep.nil?
             rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
                                            title: title_temp })
             
@@ -62,8 +52,28 @@ class Representative < ApplicationRecord
             rep.party = official.party
             rep.photourl = official.photo_url
             
-            rep.save
+            rep.save            
+        end
+        rep
+    end
+    
+    def self.civic_api_to_representative_params(rep_info)
+        reps = []
+        
+        rep_info.officials.each_with_index do |official, index|
+            ocdid_temp = ''
+            title_temp = ''
+
+            rep_info.offices.each do |office|
+                if office.official_indices.include? index
+                    title_temp = office.name
+                    ocdid_temp = office.division_id
+                end
+            end
+            
+            rep = add_representative_to_database(official,ocdid_temp,title_temp)
             reps.push(rep)
+            
         end
 
         reps
