@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 class CreateRatings < ActiveRecord::Migration[5.2]
-    
     def up
         create_table :ratings do |t|
             t.integer :score
@@ -12,7 +13,4 @@ class CreateRatings < ActiveRecord::Migration[5.2]
     def down
         drop_table :ratings
     end
-    
-    
-    
 end
