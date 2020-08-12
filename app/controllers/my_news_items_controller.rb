@@ -20,6 +20,7 @@ class MyNewsItemsController < SessionController
         @news_item = @representative.news_items.new(news_item_params)
         puts "*************************"
         puts "DEBUG received rating:", news_item_params[:rating]
+
         if @news_item.save
             redirect_to representative_news_item_path(@representative, @news_item),
                         notice: 'News item was successfully created.'
