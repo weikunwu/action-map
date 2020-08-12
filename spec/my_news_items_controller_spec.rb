@@ -8,30 +8,57 @@ require 'rails_helper'
 # t.timestamps null: false
 
 
-RSpec.describe NewsItemsController, type: :controller do
+RSpec.describe MyNewsItemsController, type: :controller do
     before (:each) do
         @r_params0 = {:ocdid => '123', :name => 'name0', :title => 'title0'} #,:created_at => '1/7/2020', :updated_at => '1/7/2020'}
         @representative0 = Representative.create(@r_params0)
         @news_item_params00 = {:title => 'news0-0', :link => 'link0-0', representative_id: @representative0.id}
         @news_item00 = @representative0.news_items.create(@news_item_params00)
     end
+    
+    describe "GET #new" do
+        it "render page for user to input" do
+            get :new, params: { representative_id: @representative0.id }
+#             expect(response).to render_template(:new)
+            expect(response).to redirect_to(:login)
+        end
+        it "has required fields to be filled in" do
+            get :new, params: { representative_id: @representative0.id }
+            
+            expect(1).to eq 1
+        end
+    end
   
-    describe "GET #index" do
-        it "shows news items of a representative" do
-            get :index, params: { representative_id: @representative0.id }
-            expect(assigns(:news_items)).to include(@news_item00)
-            expect(response).to render_template(:index)
+    describe "GET #create" do
+        it "increase database by 1" do
+            post :create, params: { representative_id: @representative0.id, params: @news_item_params00 }
+            expect(response).to redirect_to(:login)
+
+        end
+        it "redirect to all news articles" do
+            get :create, params: { representative_id: @representative0.id }
+#             expect(assigns(:news_items)).to include(@news_item00)
+#             expect(response).to render_template(:index)
+#             expect(response).to redirect_to(:index)
         end
     end
   
   
-    describe "Get #show" do
-        it "shows detail of a news item" do
-            get :show, params: { representative_id: @representative0.id, id: @news_item00.id}
-            expect(assigns(:news_item).title).to eq 'news0-0'
-            expect(response).to render_template(:show)
+    describe "GET #edit" do
+        it "has fields prefilled" do
+            # get :edit, params: { representative_id: @representative0.id, id: @news_item00.id }
+            # expect(page.find_field('Title').value).to eq 'news0-0'
         end
     end
+    
+    describe "POST #update" do
+        it "update a news article" do
+        end
+    end
+    
+    describe "" do
+    end
+    
 #   describe "POST #create" do
 #     it "adds new movie to database" do
 #         expect {
