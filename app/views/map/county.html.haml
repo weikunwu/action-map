@@ -12,7 +12,24 @@
     .col-12.col-lg-8.offset-lg-2
         #actionmap-county-representatives
             .jumbotron.text-center
-                The list of county representatives should appear here.
+                %table.table.table-striped.table-hover#events
+                    %caption Table of Representatives
+                    %thead.thead-dark
+                        %tr
+                            %th Name
+                            %th Office
+                            %th Links
+                    %tbody
+                        - @representatives.each_with_index do |rep, _index|
+                            %tr
+                                %td
+                                    = link_to representative_profile_page_path(rep.id), class: 'content' do
+                                        #{rep.name}
+                                %td= rep.title
+                                %td
+                                    = link_to representative_news_items_path(rep.id), class: 'btn btn-primary' do
+                                        %i.fas.fa-newspaper
+                                        News Articles
 #actionmap-info-box
 .d-none#actionmap-info-container{ 'data-counties': @county_details.to_json, 'data-state': @state.to_json,
 'data-state-topojson-file': asset_path("states/#{@state[:symbol].downcase}.topo.json"),
