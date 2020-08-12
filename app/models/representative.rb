@@ -59,7 +59,7 @@ class Representative < ApplicationRecord
     
     def self.civic_api_to_representative_params(rep_info)
         reps = []
-        
+
         rep_info.officials.each_with_index do |official, index|
             ocdid_temp = ''
             title_temp = ''
@@ -75,7 +75,13 @@ class Representative < ApplicationRecord
             reps.push(rep)
             
         end
-
+        
         reps
+    end
+    
+    def self.in_same_county(county)
+        county.gsub! ' County', ''
+        county.gsub! ' ', '_'
+        reps = Representative.where("ocdid LIKE ?", "%#{county.downcase}").to_a
     end
 end
