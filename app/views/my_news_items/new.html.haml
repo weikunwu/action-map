@@ -18,14 +18,14 @@
             .float-left
                 %h5 Autofill News Article
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        .clearfix.mt-3      
+        .clearfix.mt-3
             .float-left
                 -# = link_to representative_autofill_my_news_item_path(@representative), class: 'btn btn-info' do
-                -#     Autofill News Article
-                -#     %i.fas.fa-arrow-right
+                     Autofill News Article
+                     %i.fas.fa-arrow-right
                 = render 'form', news_item: @news_item,
                 form_url: representative_new_my_news_item_path(@representative),
                 form_method: :put,
-                representatives_list: @representatives_list, 
+                representatives_list: @representatives_list,
                 all_issues: @all_issues,
-                rating_scale: Rating.rating_scale   
+                rating_scale: Rating.rating_scale
