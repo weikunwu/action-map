@@ -69,18 +69,17 @@ class MyNewsItemsController < SessionController
         @representative = Representative.find(params[:news_item]['representative_id'])
         re = open('http://newsapi.org/v2/everything?q=' + params[:news_item]['issue'] + ' AND ' + @representative.name +
               '&from=2020-08-12&sortBy=popularity&apiKey=65366a4cea244d1083c6c20690ab4c55')
-        autofill_helper(re, articles=[])
+        autofill_helper(re, articles = [])
         @news_articles = articles
     end
 
     def autofill_helper(req, articles)
-        response_body = JSON.parse(req.read)['articles'][0..4].each do |article|
+        JSON.parse(req.read)['articles'][0..4].each do |article|
             articles.append([article['title'], article['url']])
         end
     end
 
     def extract
-        list = params[:news_item]
         @news_item = NewsItem.new(news_item_params)
         @all_issues = NewsItem.all_issues
     end

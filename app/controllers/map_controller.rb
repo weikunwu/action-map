@@ -37,7 +37,7 @@ class MapController < ApplicationController
         service.key = Rails.application.credentials.dig(:GOOGLE_API_KEY)
         result = service.representative_info_by_address(address: county.name)
         Representative.civic_api_to_representative_params(result)
-        reps = Representative.in_same_county(county.name)
+        Representative.in_same_county(county.name)
     end
 
     def handle_state_not_found
