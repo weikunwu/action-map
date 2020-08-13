@@ -30,33 +30,33 @@ class Representative < ApplicationRecord
         end
     end
     
-    def self.add_representative_to_database(official,ocdid_temp,title_temp)
-        rep = Representative.where("name=? AND ocdid=? AND title=?",official.name,ocdid_temp,title_temp)[0]
+    def self.add_representative_to_database(official, ocdid_temp, title_temp)
+        rep = Representative.where('name=? AND ocdid=? AND title=?', official.name, ocdid_temp, title_temp)[0]
         if rep.nil?
             rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
                                            title: title_temp })
-            
-            if official.address.nil?
-              address = FakeAddress.new
-            else
-              address = official.address[0]
-            end
-          
+
+            address = if official.address.nil?
+                          FakeAddress.new
+                      else
+                          official.address[0]
+                      end
+
             rep.address_line1 = address.line1
             rep.address_line2 = address.line2
             rep.address_line3 = address.line3
             rep.city = address.city
             rep.state = address.state
             rep.zip = address.zip
-          
+
             rep.party = official.party
             rep.photourl = official.photo_url
-            
-            rep.save            
+
+            rep.save
         end
         rep
     end
-    
+
     def self.civic_api_to_representative_params(rep_info)
         reps = []
 
@@ -70,18 +70,17 @@ class Representative < ApplicationRecord
                     ocdid_temp = office.division_id
                 end
             end
-            
-            rep = add_representative_to_database(official,ocdid_temp,title_temp)
+
+            rep = add_representative_to_database(official, ocdid_temp, title_temp)
             reps.push(rep)
-            
         end
-        
+
         reps
     end
-    
+
     def self.in_same_county(county)
         county.gsub! ' County', ''
         county.gsub! ' ', '_'
-        reps = Representative.where("ocdid LIKE ?", "%#{county.downcase}").to_a
+        reps = Representative.where('ocdid LIKE ?', "%#{county.downcase}").to_a
     end
 end
