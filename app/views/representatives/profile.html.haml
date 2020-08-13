@@ -1,8 +1,8 @@
 
 %html
-    %head  
-        -#%link{:rel => :stylesheet, :type => :"text/css", :href => "app/javascript/packs/stylesheets/application.scss"} 
-    %body  
+    %head
+        -# %link{rel: :stylesheet, type: :"text/css",href: "app/javascript/packs/stylesheets/application.scss"}
+    %body
         .container
             .row
                 .profile
@@ -20,24 +20,22 @@
                         .row
                             .col
                                 .img
-                                    %img.img-raised.rounded-circle.img-fluid{:alt => "Image Not Found" , :src => @representatives.photourl}
-                            .col    
+                                    %img.img-raised.rounded-circle.img-fluid{ alt: 'Image Not Found',
+                                    src: @representatives.photourl }
+                            .col
                                 .name
-                                    %h1 #{@representatives.name}
+                                    %h1= @representatives.name
                                 .title
-                                    %h5 #{@representatives.title}
+                                    %h5= @representatives.title
                                 .party
-                                    %h5 #{@representatives.party}
+                                    %h5= @representatives.party
                                 .address
-                                    %h5 #{@representatives.address_line1}  
-                                    %h5 #{@representatives.city}, #{@representatives.state} #{@representatives.zip}
+                                    %h5= @representatives.address_line1
+                                    %h5
+                                        = @representatives.city
+                                        ,
+                                        = @representatives.state
+
+                                        = @representatives.zip
                                 .ocdid
-                                    %h5 #{@representatives.ocdid}
-                                    
-
-
-
-                    
-
-
-
+                                    %h5= @representatives.ocdid
