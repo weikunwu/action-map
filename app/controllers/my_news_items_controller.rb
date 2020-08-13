@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'open-uri'
 require 'json'
 
@@ -13,23 +14,35 @@ class MyNewsItemsController < SessionController
         if params[:news_item].nil?
             @news_item = NewsItem.new
         else
-            if !params[:news_item][:title].nil?
-                @news_item = NewsItem.new(:title => params[:news_item][:title].split[0..-2], :link => params[:news_item][:title].split[-1])
-            else 
-                @news_item = NewsItem.new(news_item_params)
-            end
+            new_helper
         end
         @all_issues = NewsItem.all_issues
     end
 
+    def new_helper
+        if !params[:news_item][:title].nil?
+            new_helper_3
+        else
+            new_helper_2
+        end
+    end
+
+    def new_helper_3
+        @news_item = NewsItem.new(
+            title: params[:news_item][:title].split[0..-2],
+            link:  params[:news_item][:title].split[-1]
+        )
+    end
+
+    def new_helper_2
+        @news_item = NewsItem.new(news_item_params)
+    end
+
     def edit
-        # My Code #
-        # byebug
         @all_issues = NewsItem.all_issues
     end
 
     def create
-        #@news_item = @representative.news_items.new(news_item_params)
         @news_item = NewsItem.new(news_item_params)
         if @news_item.save
             redirect_to representative_news_item_path(@representative, @news_item),
@@ -37,8 +50,6 @@ class MyNewsItemsController < SessionController
         else
             render :new, error: 'An error occurred when creating the news item.'
         end
-
-        # @rating = @news_item.ratings.create(score: rating_params[:score], user_id: current_user.id)
         @rating = Rating.create!(score: rating_params[:score], user_id: @current_user.id, news_item_id: @news_item.id)
     end
 
@@ -46,7 +57,7 @@ class MyNewsItemsController < SessionController
         rating_params[:user_id] = @current_user.id
         rating_params[:news_item_id] = @news_item.id
         if @rating.nil?
-            @rating = Rating.create(rating_params)
+            updateHelper
         else
             @rating.update(score: rating_params[:score])
         end
@@ -58,34 +69,34 @@ class MyNewsItemsController < SessionController
         end
     end
 
+    def update_helper
+        @rating = Rating.create(rating_params)
+    end
+
     def autofill
-        @representative = Representative.find(params[:news_item]["representative_id"])
-        
+        @representative = Representative.find(params[:news_item]['representative_id'])
         url = 'http://newsapi.org/v2/everything?'\
-        'q=' + params[:news_item]["issue"] + ' AND ' + @representative.name + '&'\
-        'from=2020-08-12&'\
-        'sortBy=popularity&'\
-        'apiKey=65366a4cea244d1083c6c20690ab4c55'
+        'q=' + params[:news_item]['issue'] + ' AND ' + @representative.name + '&'\
+        'from=2020-08-12&sortBy=popularity&apiKey=65366a4cea244d1083c6c20690ab4c55'
 
         req = open(url)
-        articles = []
-        response_body = JSON.parse(req.read)["articles"][0..4].each do |article|
-            articles.append([article["title"], article["url"]])
-        end
-        #@news_articles = url
+        articles = autofill_helper(req, [])
         @news_articles = articles
+    end
+
+    def autofill_helper(req, articles)
+        response_body = JSON.parse(req.read)['articles'][0..4].each do |article|
+            articles.append([article['title'], article['url']])
+        end
     end
 
     def extract
         list = params[:news_item]
         @news_item = NewsItem.new(news_item_params)
         @all_issues = NewsItem.all_issues
-        # redirect_to representative_new_my_news_item_path(@representative)
     end
 
     def destroy
-        # puts '*********************'
-        # puts 'DEBUG: destroy called!'
         @news_item.destroy
         redirect_to representative_news_items_path(@representative),
                     notice: 'News was successfully destroyed.'
@@ -116,7 +127,6 @@ class MyNewsItemsController < SessionController
         rating_params[:news_item_id] = @news_item.id
     end
 
-    # Only allow a list of trusted parameters through.
     def news_item_params
         params.require(:news_item).permit(:news, :title, :description, :link, :representative_id, :issue, :rating)
     end
