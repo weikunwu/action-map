@@ -55,10 +55,10 @@ group :development, :test do
     gem 'database_cleaner'
     gem 'factory_bot'
     gem 'haml_lint'
+    gem 'rails-controller-testing'
     gem 'rspec-rails'
     gem 'rubocop-rails'
     gem 'sqlite3'
-    gem 'rails-controller-testing'
 
     # Guard Plugins
     gem 'guard'

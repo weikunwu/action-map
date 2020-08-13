@@ -24,7 +24,7 @@
                             %tr
                                 %td
                                     = link_to representative_profile_page_path(rep.id), class: 'content' do
-                                        #{rep.name}
+                                        = rep.name
                                 %td= rep.title
                                 %td
                                     = link_to representative_news_items_path(rep.id), class: 'btn btn-primary' do

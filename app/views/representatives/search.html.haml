@@ -13,8 +13,8 @@
                         - @representatives.each_with_index do |rep, _index|
                             %tr
                                 %td
-                                    = link_to representative_profile_page_path(rep.id), class: 'content', id:"name" + rep.name do
-                                        #{rep.name}
+                                    = link_to representative_profile_page_path(rep.id), class: 'content' do
+                                        = rep.name
                                 %td= rep.title
                                 %td
                                     = link_to representative_news_items_path(rep.id), class: 'btn btn-primary' do
