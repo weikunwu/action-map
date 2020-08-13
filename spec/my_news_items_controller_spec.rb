@@ -21,7 +21,13 @@ RSpec.describe MyNewsItemsController, type: :controller do
         @representative0 = Representative.create(@r_params0)
         @news_item_params00 = { title: 'news0-0', link: 'link0-0', representative_id: @representative0.id }
         @news_item00 = @representative0.news_items.create(@news_item_params00)
-        @user_params = { uid: '1', email: 'test@test.com', first_name: 'Firstname', last_name: 'Lastname', provider: 'google_oauth2' }
+        @user_params = {
+            uid:        '1',
+            email:      'test@test.com',
+            first_name: 'Firstname',
+            last_name:  'Lastname',
+            provider:   'google_oauth2'
+        }
         @current_user = User.create(@user_params)
     end
 
