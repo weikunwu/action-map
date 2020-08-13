@@ -34,6 +34,10 @@ Rails.application.routes.draw do
         :as => :new_my_news_item
     match '/representatives/:representative_id/my_news_item/new', to: 'my_news_items#create',
                                                                   via: [:post]
+    match '/representatives/:representative_id/my_news_item/new', to: 'my_news_items#autofill',
+                                                                  via: %i[put patch]
+    match '/representatives/:representative_id/my_news_item/new', to: 'my_news_items#extract',
+                                                                  via: [:options]
     get '/representatives/:representative_id/my_news_item/:id' => 'my_news_items#edit',
         :as => :edit_my_news_item
     match '/representatives/:representative_id/my_news_item/:id', to: 'my_news_items#update',

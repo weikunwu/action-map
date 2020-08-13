@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'open-uri'
+require 'json'
 
 class MyNewsItemsController < SessionController
     before_action :set_representative
@@ -8,7 +10,15 @@ class MyNewsItemsController < SessionController
     before_action :set_rating_params, only: %i[update]
 
     def new
-        @news_item = NewsItem.new
+        if params[:news_item].nil?
+            @news_item = NewsItem.new
+        else
+            if !params[:news_item][:title].nil?
+                @news_item = NewsItem.new(:title => params[:news_item][:title].split[0..-2], :link => params[:news_item][:title].split[-1])
+            else 
+                @news_item = NewsItem.new(news_item_params)
+            end
+        end
         @all_issues = NewsItem.all_issues
     end
 
@@ -45,6 +55,31 @@ class MyNewsItemsController < SessionController
         else
             render :edit, error: 'An error occurred when updating the news item.'
         end
+    end
+
+    def autofill
+        @representative = Representative.find(params[:news_item]["representative_id"])
+        
+        url = 'http://newsapi.org/v2/everything?'\
+        'q=' + params[:news_item]["issue"] + ' AND ' + @representative.name + '&'\
+        'from=2020-08-12&'\
+        'sortBy=popularity&'\
+        'apiKey=65366a4cea244d1083c6c20690ab4c55'
+
+        req = open(url)
+        articles = []
+        response_body = JSON.parse(req.read)["articles"][0..4].each do |article|
+            articles.append([article["title"], article["url"]])
+        end
+        #@news_articles = url
+        @news_articles = articles
+    end
+
+    def extract
+        list = params[:news_item]
+        @news_item = NewsItem.new(news_item_params)
+        @all_issues = NewsItem.all_issues
+        # redirect_to representative_new_my_news_item_path(@representative)
     end
 
     def destroy
