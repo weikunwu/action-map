@@ -100,6 +100,6 @@ class Representative < ApplicationRecord
     def self.in_same_county(county)
         county.gsub! ' County', ''
         county.gsub! ' ', '_'
-        reps = Representative.where('ocdid LIKE ?', "%#{county.downcase}").to_a
+        Representative.where('ocdid LIKE ?', "%#{county.downcase}").to_a
     end
 end
