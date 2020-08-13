@@ -8,17 +8,23 @@ class MyNewsItemsController < SessionController
     before_action :set_rating_params, only: %i[update]
 
     def new
-        @news_item = NewsItem.new
+        if params[:news_item].nil?
+            @news_item = NewsItem.new
+        else
+            @news_item = NewsItem.new(news_item_params)
+        end
         @all_issues = NewsItem.all_issues
     end
 
     def edit
         # My Code #
+        # byebug
         @all_issues = NewsItem.all_issues
     end
 
     def create
-        @news_item = @representative.news_items.new(news_item_params)
+        #@news_item = @representative.news_items.new(news_item_params)
+        @news_item = NewsItem.new(news_item_params)
         if @news_item.save
             redirect_to representative_news_item_path(@representative, @news_item),
                         notice: 'News item was successfully created.'
@@ -31,8 +37,8 @@ class MyNewsItemsController < SessionController
     end
 
     def update
-        # rating_params[:user_id] = @current_user.id
-        # rating_params[:news_item_id] = @news_item.id
+        rating_params[:user_id] = @current_user.id
+        rating_params[:news_item_id] = @news_item.id
         if @rating.nil?
             @rating = Rating.create(rating_params)
         else
