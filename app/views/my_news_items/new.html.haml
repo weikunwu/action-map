@@ -1,6 +1,6 @@
 .row.mt-2
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
-        %h1.text-center Edit news article
+        %h1.text-center Add news article
 
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
         = render 'form', news_item: @news_item,
@@ -15,3 +15,17 @@
                 = link_to representative_news_items_path(@representative), class: 'btn btn-info' do
                     View news articles
                     %i.fas.fa-arrow-right
+            .float-left
+                %h5 Autofill News Article
+    .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4
+        .clearfix.mt-3      
+            .float-left
+                -# = link_to representative_autofill_my_news_item_path(@representative), class: 'btn btn-info' do
+                -#     Autofill News Article
+                -#     %i.fas.fa-arrow-right
+                = render 'form', news_item: @news_item,
+                form_url: representative_new_my_news_item_path(@representative),
+                form_method: :put,
+                representatives_list: @representatives_list, 
+                all_issues: @all_issues,
+                rating_scale: Rating.rating_scale   

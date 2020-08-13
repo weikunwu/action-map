@@ -6,22 +6,25 @@
             %ul
                 - news_item.errors.full_messages.each do |message|
                     %li= message
-    .form-group.row
-        .col-sm-2
-            = label :news_item, :title, 'Title:', class: 'col-form-label'
-        .col-sm-10
-            = text_field :news_item, :title, { class: 'form-control', placeholder: 'Brief title of article...' }
-    .form-group.row
-        .col-sm-2
-            = label :news_item, :link, 'Link', class: 'col-form-label'
-        .col-sm-10
-            = text_field :news_item, :link, { class: 'form-control', placeholder: 'Link to external article...' }
-    .form-group.row
-        .col-sm-2
-            = label :news_item, :description, class: 'col-form-label'
-        .col-sm-10
-            = text_area :news_item, :description, { class: 'form-control',
-            placeholder: 'Describe the contents of the article...' }
+    - if form_method == :post
+        .form-group.row
+            .col-sm-2
+                = label :news_item, :title, 'Title:', class: 'col-form-label'
+            .col-sm-10
+                = text_field :news_item, :title, { class: 'form-control', placeholder: 'Brief title of article...' }
+    - if form_method == :post
+        .form-group.row
+            .col-sm-2
+                = label :news_item, :link, 'Link', class: 'col-form-label'
+            .col-sm-10
+                = text_field :news_item, :link, { class: 'form-control', placeholder: 'Link to external article...' }
+    - if form_method == :post
+        .form-group.row
+            .col-sm-2
+                = label :news_item, :description, class: 'col-form-label'
+            .col-sm-10
+                = text_area :news_item, :description, { class: 'form-control',
+                placeholder: 'Describe the contents of the article...' }
     .form-group.row
         .col-sm-2
             = label :news_item, :representative_id, class: 'col-form-label'
@@ -34,11 +37,12 @@
         .col-sm-10
             = select :news_item, :issue, all_issues, { include_blank: true },
             class: 'form-control'
-    .form-group.row
-        .col-sm-2
-            = label :rating, :rating, class: 'col-form-label'
-        .col-sm-10
-            = select :rating, :score, rating_scale, { include_blank: true },
-            class: 'form-control'
+    - if form_method == :post
+        .form-group.row
+            .col-sm-2
+                = label :rating, :rating, class: 'col-form-label'
+            .col-sm-10
+                = select :rating, :score, rating_scale, { include_blank: true },
+                class: 'form-control'
     .actions
         = f.submit 'Save', class: 'btn btn-primary'

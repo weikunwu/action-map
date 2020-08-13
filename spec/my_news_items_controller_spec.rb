@@ -9,17 +9,25 @@ require 'rails_helper'
 # t.belongs_to :representative, null: false, index: true
 # t.timestamps null: false
 
+# t.integer :provider, null: false # Authentication provider eg. Google or Twitter
+# t.string :uid, null: false
+# t.string :email
+# t.string :first_name
+# t.string :last_name
+
 RSpec.describe MyNewsItemsController, type: :controller do
     before :each do
         @r_params0 = { ocdid: '123', name: 'name0', title: 'title0' }
         @representative0 = Representative.create(@r_params0)
         @news_item_params00 = { title: 'news0-0', link: 'link0-0', representative_id: @representative0.id }
         @news_item00 = @representative0.news_items.create(@news_item_params00)
+        @user_params = { uid: '1', email: 'test@test.com', first_name: 'Firstname', last_name: 'Lastname', provider: 'google_oauth2' }
+        @current_user = User.create(@user_params)
     end
 
     describe 'GET #new' do
         it 'render page for user to input' do
-            get :new, params: { representative_id: @representative0.id }
+            get :new, params: { representative_id: @representative0.id }, session: { user_id: '1' }
             # expect(response).to render_template(:new)
             expect(response).to redirect_to(:login)
         end
@@ -29,7 +37,7 @@ RSpec.describe MyNewsItemsController, type: :controller do
         end
     end
 
-    describe 'GET #create' do
+    describe 'POST #create' do
         it 'increase database by 1' do
             post :create, params: { representative_id: @representative0.id, params: @news_item_params00 }
             expect(response).to redirect_to(:login)

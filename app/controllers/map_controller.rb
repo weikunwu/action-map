@@ -26,17 +26,19 @@ class MapController < ApplicationController
         handle_county_not_found && return if @state.nil?
 
         @county_details = @state.counties.index_by(&:std_fips_code)
-        
-        service = Google::Apis::CivicinfoV2::CivicInfoService.new        
-        service.key = Rails.application.credentials.dig(:GOOGLE_API_KEY)
-        result = service.representative_info_by_address(address: @county.name)
-        Representative.civic_api_to_representative_params(result)
-        
-        @representatives = Representative.in_same_county(@county.name)
-        
+
+        @representatives = civic_api_set_up_database_for_county(@county)
     end
 
     private
+
+    def civic_api_set_up_database_for_county(county)
+        service = Google::Apis::CivicinfoV2::CivicInfoService.new
+        service.key = Rails.application.credentials.dig(:GOOGLE_API_KEY)
+        result = service.representative_info_by_address(address: county.name)
+        Representative.civic_api_to_representative_params(result)
+        reps = Representative.in_same_county(county.name)
+    end
 
     def handle_state_not_found
         state_symbol = params[:state_symbol].upcase

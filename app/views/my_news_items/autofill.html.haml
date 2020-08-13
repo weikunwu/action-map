@@ -1,0 +1,38 @@
+-# = form_tag , method: :get do
+    
+-#     .col-md-4
+-#         -@news_articles.each_with_index do |article, index|
+-#             .form-group.row 
+-#                 .col-sm-2
+-#                     = label :news_item, :title, #{article[0], class: 'col-form-label'}
+-#                 .col-sm-10
+-#                     = radio_button_tag :news_item, :title, { class: 'form-control' }
+-#     .actions
+-#         = submit_tag 'Submit', class: 'btn btn-primary'
+ 
+
+= form_for :news_item, url: representative_new_my_news_item_path(@representative), html: { method: 'get' } do |f|
+    -@news_articles.each_with_index do |article, index|
+        .form-group.row
+            .col-sm-1
+                = f.radio_button :title, article               
+            .col-sm-10
+                = label :news_item, :title, article[0], class: 'col-form-label'
+    = submit_tag 'Submit', class: 'btn btn-primary'
+.float-right    
+    = link_to representative_new_my_news_item_path(@representative), class: 'btn btn-info' do
+        Manually Input Article
+        %i.fas.fa-arrow-right
+
+    -# %label
+    -#     %input{name: "article", type: "radio", value: article[1]}
+    -#     #{article[0]} 
+    -# .col-md-4
+    -#     = select :news_item, :title,
+    -#     class: 'form-control'
+
+    -# .form-group.row
+        .col-sm-2
+            = label :news_item, :title, 'Title:', class: 'col-form-label'
+        .col-sm-10
+            = text_field :news_item, :title, { class: 'form-control', placeholder: 'Brief title of article...' }

@@ -9,7 +9,7 @@
                     %label.col-form-label
                         Enter a location:
                 .col-md-6
-                    = text_field_tag(:address, nil, class: 'form-control')
+                    = text_field_tag :address, nil, class: 'form-control'
 
             .actions
                 = submit_tag 'Search', class: 'btn btn-primary'
