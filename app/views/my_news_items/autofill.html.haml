@@ -1,5 +1,5 @@
 = form_for :news_item, url: representative_new_my_news_item_path(@representative), html: { method: 'get' } do |f|
-    - @news_articles.each_with_index do |article, _|
+    - @news_articles.each do |article|
         .form-group.row
             .col-sm-1
                 = f.radio_button :title, article

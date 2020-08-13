@@ -45,8 +45,7 @@ class MyNewsItemsController < SessionController
     def create
         @news_item = NewsItem.new(news_item_params)
         if @news_item.save
-            redirect_to representative_news_item_path(@representative, @news_item),
-                        notice: 'News item was successfully created.'
+            redirect_to representative_news_item_path(@representative, @news_item), notice: 'Created'
         else
             render :new, error: 'An error occurred when creating the news item.'
         end
@@ -54,33 +53,23 @@ class MyNewsItemsController < SessionController
     end
 
     def update
-        rating_params[:user_id] = @current_user.id
-        rating_params[:news_item_id] = @news_item.id
         if @rating.nil?
-            updateHelper
+            @rating = Rating.create(rating_params)
         else
             @rating.update(score: rating_params[:score])
         end
         if @news_item.update(news_item_params)
-            redirect_to representative_news_item_path(@representative, @news_item),
-                        notice: 'News item was successfully updated.'
+            redirect_to representative_news_item_path(@representative, @news_item), notice: 'Updated'
         else
             render :edit, error: 'An error occurred when updating the news item.'
         end
     end
 
-    def update_helper
-        @rating = Rating.create(rating_params)
-    end
-
     def autofill
         @representative = Representative.find(params[:news_item]['representative_id'])
-        url = 'http://newsapi.org/v2/everything?'\
-        'q=' + params[:news_item]['issue'] + ' AND ' + @representative.name + '&'\
-        'from=2020-08-12&sortBy=popularity&apiKey=65366a4cea244d1083c6c20690ab4c55'
-
-        req = open(url)
-        articles = autofill_helper(req, [])
+        re = open('http://newsapi.org/v2/everything?q=' + params[:news_item]['issue'] + ' AND ' + @representative.name +
+              '&from=2020-08-12&sortBy=popularity&apiKey=65366a4cea244d1083c6c20690ab4c55')
+        autofill_helper(re, articles=[])
         @news_articles = articles
     end
 
