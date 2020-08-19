@@ -15,5 +15,4 @@ political events in their area as well as aggregate, share and view news items i
 
 Follow the [Getting Started Guide](./docs/getting-started.md) to get your localhost environment setup.
 
-protected-woodland-59061.herokuapp.com
-
+https://action-map-11.herokuapp.com/
