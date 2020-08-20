@@ -42,23 +42,20 @@ class Representative < ApplicationRecord
         self.city = address.city
         self.state = address.state
         self.zip = address.zip
-        save
     end
 
     def update_representative_party(party)
         self.party = party
-        save
     end
 
     def update_representative_photo_url(photo_url)
         self.photourl = photo_url
-        save
     end
 
     def self.make_new_representative(official, ocdid_temp, title_temp)
         rep = Representative.create!({ name: official.name, ocdid: ocdid_temp,
                                            title: title_temp })
-
+        
         address = if official.address.nil?
                       FakeAddress.new
                   else
@@ -68,11 +65,13 @@ class Representative < ApplicationRecord
         rep.update_representative_address(address)
         rep.update_representative_party(official.party)
         rep.update_representative_photo_url(official.photo_url)
+    
+        rep
     end
 
     def self.add_representative_to_database(official, ocdid_temp, title_temp)
         rep = Representative.where('name=? AND ocdid=? AND title=?', official.name, ocdid_temp, title_temp)[0]
-        make_new_representative(official, ocdid_temp, title_temp) if rep.nil?
+        rep = make_new_representative(official, ocdid_temp, title_temp) if rep.nil?
         rep
     end
 
@@ -93,7 +92,7 @@ class Representative < ApplicationRecord
             rep = add_representative_to_database(official, ocdid_temp, title_temp)
             reps.push(rep)
         end
-
+        
         reps
     end
 
