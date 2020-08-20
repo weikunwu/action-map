@@ -90,6 +90,7 @@ class Representative < ApplicationRecord
             end
 
             rep = add_representative_to_database(official, ocdid_temp, title_temp)
+            rep.save
             reps.push(rep)
         end
         
