@@ -25,7 +25,7 @@
                      %i.fas.fa-arrow-right
                 = render 'form', news_item: @news_item,
                 form_url: representative_new_my_news_item_path(@representative),
-                form_method: :put,
+                form_method: :get,
                 representatives_list: @representatives_list,
                 all_issues: @all_issues,
                 rating_scale: Rating.rating_scale

@@ -35,7 +35,7 @@ describe Representative do
 
     describe 'stores information from civic_api_to_representative_params' do
         before(:each) do
-            address = '91754'
+            address = 'Polk County'
             service = Google::Apis::CivicinfoV2::CivicInfoService.new
             service.key = 'AIzaSyCI4oz-tPiN_5ENDt4S3bX2y1LGtQr_J14'
             @rep_info = service.representative_info_by_address(address: address)

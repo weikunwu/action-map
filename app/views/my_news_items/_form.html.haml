@@ -6,19 +6,19 @@
             %ul
                 - news_item.errors.full_messages.each do |message|
                     %li= message
-    - if form_method == :post
+    - if form_method != :get
         .form-group.row
             .col-sm-2
                 = label :news_item, :title, 'Title:', class: 'col-form-label'
             .col-sm-10
                 = text_field :news_item, :title, { class: 'form-control', placeholder: 'Brief title of article...' }
-    - if form_method == :post
+    - if form_method != :get
         .form-group.row
             .col-sm-2
                 = label :news_item, :link, 'Link', class: 'col-form-label'
             .col-sm-10
                 = text_field :news_item, :link, { class: 'form-control', placeholder: 'Link to external article...' }
-    - if form_method == :post
+    - if form_method != :get
         .form-group.row
             .col-sm-2
                 = label :news_item, :description, class: 'col-form-label'
@@ -37,7 +37,7 @@
         .col-sm-10
             = select :news_item, :issue, all_issues, { include_blank: true },
             class: 'form-control'
-    - if form_method == :post
+    - if form_method != :get
         .form-group.row
             .col-sm-2
                 = label :rating, :rating, class: 'col-form-label'
