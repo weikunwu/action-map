@@ -209,6 +209,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nenv (0.3.0)
+    news-api (0.2.0)
     nio4r (2.5.2)
     nio4r (2.5.2-java)
     nokogiri (1.10.9)
@@ -433,6 +434,7 @@ DEPENDENCIES
   haml_lint
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
+  news-api (= 0.2.0)
   omniauth
   omniauth-github
   omniauth-google-oauth2

@@ -27,7 +27,8 @@ gem 'haml-rails'
 
 # Google Civic Client
 gem 'google-api-client', '~> 0.34'
-
+# News API
+gem 'news-api', '0.2.0'
 # Use assets pipeline to serve topojson files.
 gem 'sprockets', '4.0.0'
 
