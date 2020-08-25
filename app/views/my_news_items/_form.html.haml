@@ -40,9 +40,15 @@
     - if form_method != :get
         .form-group.row
             .col-sm-2
-                = label :rating, :rating, class: 'col-form-label'
+                = label :rating, :score, class: 'col-form-label'
             .col-sm-10
                 = select :rating, :score, rating_scale, { include_blank: true },
                 class: 'form-control'
+    - if form_method != :get
+        .form-group.row
+            .col-sm-2
+                = label :rating, :comment, class: 'col-form-label'
+            .col-sm-10
+                = text_area :rating, :comment, { class: 'form-control', placeholder: 'Comment of article...' }
     .actions
         = f.submit 'Save', class: 'btn btn-primary'

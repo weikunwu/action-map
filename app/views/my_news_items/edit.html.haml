@@ -7,7 +7,7 @@
          form_url: representative_edit_my_news_item_path(@representative, @news_item),
          form_method: :put,
          representatives_list: @representatives_list,
-         all_issues: @all_issues,
+         all_issues: NewsItem.all_issues,
          rating_scale: Rating.rating_scale
 
     .col-12.col-md-6.offset-md-3.col-xl-4.offset-xl-4

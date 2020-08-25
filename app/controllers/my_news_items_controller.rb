@@ -39,7 +39,7 @@ class MyNewsItemsController < SessionController
     end
 
     def edit
-        @all_issues = NewsItem.all_issues
+        
     end
 
     def create
@@ -56,7 +56,7 @@ class MyNewsItemsController < SessionController
         if @rating.nil?
             @rating = Rating.create(rating_params)
         else
-            @rating.update(score: rating_params[:score])
+            @rating.update(rating_params)
         end
         if @news_item.update(news_item_params)
             redirect_to representative_news_item_path(@representative, @news_item), notice: 'Updated'
@@ -120,6 +120,6 @@ class MyNewsItemsController < SessionController
     end
 
     def rating_params
-        params.require(:rating).permit(:score)
+        params.require(:rating).permit(:score, :comment)
     end
 end
